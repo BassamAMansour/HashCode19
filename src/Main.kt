@@ -1,13 +1,12 @@
 import java.io.File
 import java.util.*
 import kotlin.collections.HashMap
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.collections.HashSet
+import kotlin.math.min
 
 
 fun main(args: Array<String>) {
-    val lines = File("b.txt").readLines().toTypedArray()
+    val lines = File("a.txt").readLines().toTypedArray()
 
     val n = lines[0].toInt()
 
@@ -35,7 +34,6 @@ fun main(args: Array<String>) {
 
     val verticalSlides = getOptimalVerticalSlides(verticalIds)
 
-    print(verticalSlides.toString())
     val horizontalSlides = convertHorizontalPhotosToSlides(horizontalIds)
     val slides = LinkedList<Slide>().let {
         it.addAll(horizontalSlides)
@@ -48,11 +46,10 @@ fun main(args: Array<String>) {
 
 fun convertHorizontalPhotosToSlides(horizontalPhotos: HashMap<Int, Photo>): LinkedList<Slide> {
     val horizontalSlides = LinkedList<Slide>()
-    for(key in horizontalPhotos.keys)
-    {
+    for (key in horizontalPhotos.keys) {
         val photo = horizontalPhotos[key] as Photo
         val tags = HashSet<String>()
-        for(tag in photo.tags)
+        for (tag in photo.tags)
             tags.add(tag)
         val list = LinkedList<Photo>().let {
             it.add(photo)
@@ -126,11 +123,11 @@ fun printOutput(slideShow: SlideShow) {
 
 fun convertSlideShowToText(slides: LinkedList<Slide>): String {
 
-    return slides.joinToString {
+    return slides.joinToString("\n") {
         if (it.photos.size > 1) {
-            ("${it.photos[0].id} ${it.photos[1].id}\n")
+            ("${it.photos[0].id} ${it.photos[1].id}")
         } else {
-            "${it.photos[0].id}\n"
+            "${it.photos[0].id}"
         }
     }
 }
@@ -152,11 +149,11 @@ fun getPhotoFromLine(line: String, id: Int): Photo {
     return Photo(id, photoArgs[0][0], photoArgs.subList(2, photoArgs.size))
 }
 
-fun maximizeInterest(slides: LinkedList<Slide>) : LinkedList<Slide>{
+fun maximizeInterest(slides: LinkedList<Slide>): LinkedList<Slide> {
     val slideshow = LinkedList<Slide>()
     slideshow.add(slides.removeFirst())
 
-    while (slides.isNotEmpty()){
+    while (slides.isNotEmpty()) {
         var maxHead = 0
         var maxTail = 0
         var headSlide = 0
@@ -184,7 +181,7 @@ fun maximizeInterest(slides: LinkedList<Slide>) : LinkedList<Slide>{
     return slideshow
 }
 
-fun compareSlides(s1: Slide, s2: Slide) : Int{
+fun compareSlides(s1: Slide, s2: Slide): Int {
     val intersection = s1.tags.intersect(s2.tags)
     val leftTags = s1.tags.clone() as HashSet<String>
     val rightTags = s2.tags.clone() as HashSet<String>
@@ -193,6 +190,7 @@ fun compareSlides(s1: Slide, s2: Slide) : Int{
 
     return min(leftTags.size, min(rightTags.size, intersection.size))
 }
+
 data class Photo(var id: Int, var orientation: Char, var tags: List<String>)
 data class Slide(var tags: HashSet<String>, var photos: LinkedList<Photo>)
 data class SlideShow(var slides: LinkedList<Slide>)
