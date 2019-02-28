@@ -1,6 +1,7 @@
 import java.io.File
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 
 fun main(args: Array<String>) {
@@ -31,6 +32,23 @@ fun main(args: Array<String>) {
     }
 
     val verticalSlides = getOptimalVerticalSlides(horizontalPhotos, horizontalMap, verticalPhotos, verticalMap)
+    val horizontalSlides = convertHorizontalPhotosToSlides(horizontalPhotos)
+}
+
+fun convertHorizontalPhotosToSlides(horizontalPhotos: LinkedList<Photo>): LinkedList<Slide> {
+    val horizontalSlides = LinkedList<Slide>()
+    for(photo in horizontalPhotos)
+    {
+        val tags = HashSet<String>()
+        for(tag in photo.tags)
+            tags.add(tag)
+        val list = LinkedList<Photo>().let {
+            it.add(photo)
+            return@let it
+        }
+        horizontalSlides.add(Slide(tags, list))
+    }
+    return horizontalSlides
 }
 
 fun getOptimalVerticalSlides(
