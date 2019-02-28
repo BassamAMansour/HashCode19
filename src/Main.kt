@@ -30,7 +30,16 @@ fun main(args: Array<String>) {
         }
     }
 
+    val verticalSlides = getOptimalVerticalSlides(horizontalPhotos, horizontalMap, verticalPhotos, verticalMap)
+}
 
+fun getOptimalVerticalSlides(
+    horizontalPhotos: LinkedList<Photo>,
+    horizontalMap: HashMap<String, LinkedList<Photo>>,
+    verticalPhotos: LinkedList<Photo>,
+    verticalMap: HashMap<String, LinkedList<Photo>>
+): LinkedList<Slide> {
+    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 }
 
 fun printOutput(slideShow: SlideShow) {
