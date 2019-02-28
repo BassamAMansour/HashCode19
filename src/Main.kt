@@ -8,10 +8,10 @@ fun main(args: Array<String>) {
 
     val n = lines[0].toInt()
 
-    val horizontalPhotos = LinkedList<Photo>()
-    val verticalPhotos = LinkedList<Photo>()
-    val horizontalMap = HashMap<String, LinkedList<Photo>>()
-    val verticalMap = HashMap<String, LinkedList<Photo>>()
+    val horizontalIds = HashMap<Int, Photo>()
+    val verticalIds = HashMap<Int, Photo>()
+    val horizontalTags = HashMap<String, LinkedList<Photo>>()
+    val verticalTags = HashMap<String, LinkedList<Photo>>()
 
     repeat(n) {
 
@@ -19,27 +19,34 @@ fun main(args: Array<String>) {
 
         when (photo.orientation) {
             'H' -> {
-                horizontalPhotos.add(photo)
-                addTagsToMap(horizontalMap, photo)
+                horizontalIds[it] = photo
+                addTagsToMap(horizontalTags, photo)
             }
 
             'V' -> {
-                verticalPhotos.add(photo)
-                addTagsToMap(verticalMap, photo)
+                verticalIds[it] = photo
+                addTagsToMap(verticalTags, photo)
             }
         }
     }
 
-    val verticalSlides = getOptimalVerticalSlides(horizontalPhotos, horizontalMap, verticalPhotos, verticalMap)
+    val verticalSlides = getOptimalVerticalSlides(verticalIds, verticalTags)
 }
 
 fun getOptimalVerticalSlides(
-    horizontalPhotos: LinkedList<Photo>,
-    horizontalMap: HashMap<String, LinkedList<Photo>>,
-    verticalPhotos: LinkedList<Photo>,
+    verticalIds: HashMap<Int, Photo>,
     verticalMap: HashMap<String, LinkedList<Photo>>
 ): LinkedList<Slide> {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    val verticalSlides = LinkedList<Slide>()
+
+
+
+
+
+
+    return verticalSlides
+
 }
 
 fun printOutput(slideShow: SlideShow) {
