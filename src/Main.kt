@@ -5,7 +5,7 @@ import kotlin.collections.HashSet
 
 
 fun main(args: Array<String>) {
-    val lines = File("e.txt").readLines().toTypedArray()
+    val lines = File("d.txt").readLines().toTypedArray()
 
     val n = lines[0].toInt()
 
@@ -64,7 +64,7 @@ fun getOptimalVerticalSlides(verticalIds: HashMap<Int, Photo>): LinkedList<Slide
                         leastInnerPhoto = innerPhoto
                     }
 
-                    if (leastIntersection <= 100) break
+                    if (leastIntersection <= 1) break
                 }
             }
 
