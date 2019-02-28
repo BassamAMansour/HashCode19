@@ -91,7 +91,7 @@ fun getOptimalVerticalSlides(verticalIds: HashMap<Int, Photo>): LinkedList<Slide
                         leastInnerPhoto = innerPhoto
                     }
 
-                    if (leastIntersection <= 100) break
+                    if (leastIntersection <= 1) break
                 }
             }
 
