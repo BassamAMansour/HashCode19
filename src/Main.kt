@@ -7,7 +7,7 @@ import kotlin.collections.HashSet
 
 
 fun main(args: Array<String>) {
-    val lines = File("a.txt").readLines().toTypedArray()
+    val lines = File("b.txt").readLines().toTypedArray()
 
     val n = lines[0].toInt()
 
