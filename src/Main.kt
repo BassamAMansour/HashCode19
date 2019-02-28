@@ -6,7 +6,7 @@ import kotlin.math.min
 
 
 fun main(args: Array<String>) {
-    val lines = File("a.txt").readLines().toTypedArray()
+    val lines = File("e.txt").readLines().toTypedArray()
 
     val n = lines[0].toInt()
 
@@ -164,10 +164,19 @@ fun maximizeInterest(slides: LinkedList<Slide>): LinkedList<Slide> {
                 maxHead = compRet
                 headSlide = index
             }
+
+            if (maxHead <= 10) {
+                break
+            }
+
             compRet = compareSlides(slideshow.last, slide)
             if (maxTail < compRet && slides.size != 1) {
                 maxTail = compRet
                 tailSlide = index
+            }
+
+            if (maxTail <= 10) {
+                break
             }
         }
 
