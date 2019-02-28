@@ -33,6 +33,21 @@ fun main(args: Array<String>) {
 
 }
 
+fun printOutput(slideShow: SlideShow) {
+    File("out.txt").writeText("${slideShow.slides.size}\n${convertSlideShowToText(slideShow.slides)}")
+}
+
+fun convertSlideShowToText(slides: LinkedList<Slide>): String {
+
+    return slides.joinToString {
+        if (it.photos.size > 1) {
+            ("${it.photos[0].id} ${it.photos[1].id}\n")
+        } else {
+            "${it.photos[0].id}\n"
+        }
+    }
+}
+
 fun addTagsToMap(map: HashMap<String, LinkedList<Photo>>, photo: Photo) {
     for (tag in photo.tags) {
         if (map.containsKey(tag)) {
