@@ -45,8 +45,6 @@ fun getOptimalVerticalSlides(verticalIds: HashMap<Int, Photo>): LinkedList<Slide
 
     for (outerId in ids) {
 
-        println(System.currentTimeMillis())
-
         if (!usedIds.contains(outerId)) {
 
             val outerPhoto = verticalIds[outerId]!!
@@ -65,6 +63,8 @@ fun getOptimalVerticalSlides(verticalIds: HashMap<Int, Photo>): LinkedList<Slide
                         leastIntersection = intersection
                         leastInnerPhoto = innerPhoto
                     }
+
+                    if (leastIntersection <= 100) break
                 }
             }
 
