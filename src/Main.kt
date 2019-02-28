@@ -1,10 +1,11 @@
 import java.io.File
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 
 fun main(args: Array<String>) {
-    val lines = File("a.txt").readLines().toTypedArray()
+    val lines = File("e.txt").readLines().toTypedArray()
 
     val n = lines[0].toInt()
 
@@ -30,20 +31,63 @@ fun main(args: Array<String>) {
         }
     }
 
-    val verticalSlides = getOptimalVerticalSlides(verticalIds, verticalTags)
+    val verticalSlides = getOptimalVerticalSlides(verticalIds)
+
+    print(verticalSlides.toString())
 }
 
-fun getOptimalVerticalSlides(
-    verticalIds: HashMap<Int, Photo>,
-    verticalMap: HashMap<String, LinkedList<Photo>>
-): LinkedList<Slide> {
+fun getOptimalVerticalSlides(verticalIds: HashMap<Int, Photo>): LinkedList<Slide> {
 
     val verticalSlides = LinkedList<Slide>()
 
+    val ids = verticalIds.keys
+    val usedIds = HashSet<Int>()
 
+    for (outerId in ids) {
 
+        println(System.currentTimeMillis())
 
+        if (!usedIds.contains(outerId)) {
 
+            val outerPhoto = verticalIds[outerId]!!
+
+            var leastIntersection: Int = Int.MAX_VALUE
+            var leastIntersectionId: Int = -1
+            var leastInnerPhoto: Photo? = null
+
+            for (innerId in ids) {
+                if (!usedIds.contains(innerId) && innerId != outerId) {
+                    val innerPhoto = verticalIds[innerId]!!
+                    val intersection = outerPhoto.tags.intersect(innerPhoto.tags).size
+
+                    if (intersection < leastIntersection) {
+                        leastIntersectionId = innerId
+                        leastIntersection = intersection
+                        leastInnerPhoto = innerPhoto
+                    }
+                }
+            }
+
+            if (leastIntersectionId != -1) {
+
+                val photos = LinkedList<Photo>().apply {
+                    add(outerPhoto)
+                    add(leastInnerPhoto!!)
+                }
+
+                val tags = HashSet<String>()
+
+                tags.addAll(outerPhoto.tags)
+                tags.addAll(leastInnerPhoto!!.tags)
+
+                verticalSlides.add(Slide(tags, photos))
+
+                usedIds.addAll(listOf(outerId, leastIntersectionId))
+            }
+
+        }
+
+    }
 
     return verticalSlides
 
